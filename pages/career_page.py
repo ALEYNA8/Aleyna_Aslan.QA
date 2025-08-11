@@ -21,21 +21,26 @@ class CareerPage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 20)
 
+    # Checks the visibility of the 'Our Locations' section.
     def is_our_locations_visible(self):
         self.wait.until(EC.visibility_of_element_located(self.OUR_LOCATIONS))
         return True
 
+    # Checks the visibility of the 'Teams' section.
     def is_teams_section_visible(self):
         self.wait.until(EC.visibility_of_element_located(self.TEAMS_SECTION))
         return True
 
+    # Checks the visibility of the 'Life at Insider' title.
     def is_life_at_insider_visible(self):
         self.wait.until(EC.visibility_of_element_located(self.LIFE_AT_INSIDER))
         return True
 
+    # Goes to the Quality Assurance career page.
     def go_to_quality_assurance_page(self):
         self.driver.get("https://useinsider.com/careers/quality-assurance/")
 
+    # Accepts the cookie popup.
     def accept_cookies_popup(self):
         try:
             accept_btn = self.wait.until(EC.element_to_be_clickable(self.ACCEPT_COOKIES_BTN))
@@ -44,24 +49,29 @@ class CareerPage:
         except:
             print("⚠ Cookies popup not found or already accepted.")
 
+    # He/She clicks the button to handle all QA tasks.
     def click_see_all_qa_jobs(self):
         see_all_btn = self.wait.until(EC.element_to_be_clickable(self.SEE_ALL_QA_JOBS_BTN))
         see_all_btn.click()
 
+    # Opens the location filter and selects the chosen location.
     def filter_by_location(self, location_name="Istanbul, Turkey"):
         self.wait.until(EC.element_to_be_clickable(self.LOCATION_DROPDOWN)).click()
         option_locator = (By.XPATH, self.LOCATION_OPTION_TEMPLATE.format(location_name))
         self.wait.until(EC.element_to_be_clickable(option_locator)).click()
 
+    # Opens the department filter and selects the chosen department.
     def filter_by_department(self, department_name="Quality Assurance"):
         self.wait.until(EC.element_to_be_clickable(self.DEPARTMENT_DROPDOWN)).click()
         option_locator = (By.XPATH, self.DEPARTMENT_OPTION_TEMPLATE.format(department_name))
         self.wait.until(EC.element_to_be_clickable(option_locator)).click()
 
+    # It applies both the location and department filters.
     def filter_jobs(self, location="Istanbul, Turkey", department="Quality Assurance"):
         self.filter_by_location(location)
         self.filter_by_department(department)
 
+    # hovers over the job listing and clicks the 'View Role' button.
     def hover_and_click_first_view_role(self):
         self.wait.until(EC.presence_of_element_located(self.JOBS_LIST))
         job_element = self.wait.until(EC.presence_of_element_located(self.FIRST_JOB_ELEMENT))
