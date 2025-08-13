@@ -40,3 +40,15 @@ class HomePage:
     # It checks whether you are currently on the homepage.
     def is_on_home_page(self):
         return "useinsider.com" in self.driver.current_url
+
+    # Accepts the cookie popup on the homepage.
+    def accept_cookies_popup(self):
+        try:
+            accept_btn = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.ID, "wt-cli-accept-all-btn"))
+            )
+            accept_btn.click()
+            print("✅ Cookies accepted on home page.")
+        except:
+            print("⚠ Cookies accept button not found or already accepted on home page.")
+

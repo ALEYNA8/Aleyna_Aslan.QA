@@ -10,7 +10,7 @@ from pages.page_check import career_page_check, home_page_check
 
 class InsiderTest(BaseTest):
 
-    def test_full_flow(self):
+    def test_career_page_navigation(self):
         self.driver.get("https://useinsider.com/")
         home_page = HomePage(self.driver)
 
@@ -18,15 +18,8 @@ class InsiderTest(BaseTest):
         home_page_check(home_page)
         time.sleep(2)
 
-        # Cookie acceptance on the homepage
-        try:
-            accept_btn = WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable((By.ID, "wt-cli-accept-all-btn"))
-            )
-            accept_btn.click()
-            print("✅ Cookies accepted on home page.")
-        except:
-            print("Cookies accept button not found or already accepted on home page.")
+        # Cookie acceptance on the homepage using page method
+        home_page.accept_cookies_popup()
 
         # Transition to the career page
         home_page.click_careers()
@@ -77,4 +70,5 @@ class InsiderTest(BaseTest):
 
         self.assertIn("jobs.lever.co/useinsider", self.driver.current_url)
         time.sleep(3)
+
 
